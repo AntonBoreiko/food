@@ -36,7 +36,7 @@ window.addEventListener('DOMContentLoaded', () => {
   })
 
   // Timer
-  const deadline = '2021-08-26'
+  const deadline = '2021-09-10'
 
   function getTimeRemaining(endtime) {
     const t = Date.parse(endtime) - Date.parse(new Date())
@@ -90,4 +90,50 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   setClock('.timer', deadline)
+
+  // modal
 })
+
+const modalTrigger = document.querySelectorAll('[data-modal]')
+const modal = document.querySelector('.modal')
+const modalCloseBtn = document.querySelector('[data-close]')
+
+function openModal() {
+  modal.classList.add('show')
+  modal.classList.remove('hide')
+  document.body.style.overflow = 'hidden'
+  clearInterval(modalTimerId)
+}
+
+modalTrigger.forEach(btn => {
+  btn.addEventListener('click', openModal)
+})
+
+function closeModal() {
+  modal.classList.add('hide')
+  modal.classList.remove('show')
+  document.body.style.overflow = ''
+}
+modalCloseBtn.addEventListener('click', closeModal)
+
+modal.addEventListener('click', (event) => {
+  if (event.target === modal) {
+    closeModal()
+  }
+})
+
+document.addEventListener('keydown', (e) => {
+  if (e.code === 'Escape' && modal.classList.contains('show')) {
+    closeModal()
+  }
+})
+
+const modalTimerId = setTimeout(openModal, 5000)
+
+function showModalByScroll() {
+  if (window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight) {
+    openModal()
+    window.removeEventListener('scroll', showModalByScroll)
+  }
+}
+window.addEventListener('scroll', showModalByScroll)
