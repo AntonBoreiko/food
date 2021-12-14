@@ -2,7 +2,7 @@
 
 ## Фишки: самописный слайдер, счетчик, форма модального окна и отправка данных из модального окна в db.json
 
-<img scr="./img/food2.gif">
+<img src="./img/food2.gif">
 
 1. `git clone https://github.com/AntonBoreiko/food.git`
 2. `cd ./food`
